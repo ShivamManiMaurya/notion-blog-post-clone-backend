@@ -7,12 +7,24 @@ import {
   getAllPosts,
   deletePost,
 } from "../controllers/blogs";
+import {
+  createBlogInput,
+  updateBlogInput,
+} from "@shivam-maurya/medium-commons";
 
 const blogRoutes = new Hono();
 
 blogRoutes.post("/", authMiddleware, async (c: Context) => {
   try {
     const body = await c.req.json();
+    const inputCheck = createBlogInput.safeParse(body);
+    if (inputCheck.success) {
+      c.status(411),
+        c.json({
+          message: "Input are wrong.",
+        });
+    }
+
     const response = await create(body, c);
     if (response && response.success) return c.json(response, 200);
     return c.json({ message: "Something went wrong." }, 500);

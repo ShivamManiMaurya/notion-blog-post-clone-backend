@@ -24,5 +24,7 @@ model Posts {
   published Boolean   @default(false)
   author    Users     @relation(fields: [authorId], references: [id])
   authorId  String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime?
   deleteAt  DateTime?
 }

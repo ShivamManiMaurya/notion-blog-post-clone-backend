@@ -9,9 +9,14 @@ const prisma = new PrismaClient({
 }).$extends(withAccelerate());
 
 export const insert = async (data: SPosts.TPost, c: Context) => {
+  const payload = {
+    ...data,
+    createdAt: new Date(),
+  };
+
   try {
     const post = await prisma.posts.create({
-      data,
+      data: payload,
     });
 
     return post;
@@ -27,10 +32,15 @@ export const update = async (
   data: SPosts.TUpdatePost,
   c: Context
 ) => {
+  const payload = {
+    ...data,
+    updatedAt: new Date(),
+  };
+
   try {
     const updatedPost = await prisma.posts.update({
       where: { id },
-      data,
+      data: payload,
     });
 
     return updatedPost;
@@ -57,7 +67,17 @@ export const getOnePost = async (id: string, c: Context) => {
 export const getPosts = async (c: Context) => {
   try {
     const allPosts = await prisma.posts.findMany();
-    return allPosts;
+    const allUsers = await prisma.users.findMany();
+
+    const allPostsWithUser = allPosts.map((post) => {
+      const user = allUsers.find((user) => user.id === post.authorId);
+      return {
+        ...post,
+        authName: user?.name ?? "",
+      };
+    });
+
+    return allPostsWithUser;
   } catch (err) {
     throw err;
   } finally {

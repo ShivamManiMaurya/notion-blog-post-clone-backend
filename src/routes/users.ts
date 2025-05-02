@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { create, checkUser } from "../controllers/users";
 import { signinInput, signupInput } from "@shivam-maurya/medium-commons";
+import { authMiddleware } from "../middlewares/authentication";
 
 const userRoutes = new Hono<{
   Bindings: {

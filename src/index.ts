@@ -1,8 +1,18 @@
 import { Hono } from "hono";
+import { cors } from "hono/cors";
 import userRoutes from "./routes/users";
 import blogRoutes from "./routes/blogs";
 
 const app = new Hono();
+
+app.use(
+  "*",
+  cors({
+    origin: "*", // Or a specific origin like "https://your-frontend.com"
+    allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 app.get("/", (c) => {
   return c.text("Hello Hono!");

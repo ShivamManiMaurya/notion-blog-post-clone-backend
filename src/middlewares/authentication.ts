@@ -9,9 +9,9 @@ export const authMiddleware = async (c: Context, next: Next) => {
 
   const token = authHeader.split(" ")[1];
   try {
-    const payload = verifyToken(token);
+    const payload = await verifyToken(token);
     c.set("user", payload);
-    await next();
+    return await next();
   } catch (err) {
     return c.json({ message: "Unauthorized - Invalid or expired token" }, 403);
   }

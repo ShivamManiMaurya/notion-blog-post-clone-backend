@@ -18,11 +18,14 @@ blogRoutes.post("/", authMiddleware, async (c: Context) => {
   try {
     const body = await c.req.json();
     const inputCheck = createBlogInput.safeParse(body);
-    if (inputCheck.success) {
-      c.status(411),
-        c.json({
-          message: "Input are wrong.",
-        });
+    if (!inputCheck.success) {
+      return c.json(
+        {
+          message: "Inputs are wrong.",
+          errors: inputCheck.error.flatten(),
+        },
+        411
+      );
     }
 
     const response = await create(body, c);
@@ -45,10 +48,9 @@ blogRoutes.patch("/:id", authMiddleware, async (c: Context) => {
   }
 });
 
-blogRoutes.get("/:id", authMiddleware, async (c: Context) => {
+blogRoutes.get("/bulk", authMiddleware, async (c: Context) => {
   try {
-    const id = c.req.param("id");
-    const response = await getSinglePost(id, c);
+    const response = await getAllPosts(c);
     if (response && response.success) return c.json(response, 200);
     return c.json({ message: "Something went wrong." }, 500);
   } catch (err) {
@@ -56,10 +58,10 @@ blogRoutes.get("/:id", authMiddleware, async (c: Context) => {
   }
 });
 
-blogRoutes.get("/bulk", authMiddleware, async (c: Context) => {
+blogRoutes.get("/:id", authMiddleware, async (c: Context) => {
   try {
     const id = c.req.param("id");
-    const response = await getAllPosts(c);
+    const response = await getSinglePost(id, c);
     if (response && response.success) return c.json(response, 200);
     return c.json({ message: "Something went wrong." }, 500);
   } catch (err) {

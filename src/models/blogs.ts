@@ -56,7 +56,11 @@ export const getOnePost = async (id: string, c: Context) => {
     const singlePost = await prisma.posts.findUnique({
       where: { id },
     });
-    return singlePost;
+    const singleUsers = await prisma.users.findUnique({
+      where: { id: singlePost?.authorId },
+    });
+
+    return { ...singlePost, name: singleUsers?.name };
   } catch (err) {
     throw err;
   } finally {

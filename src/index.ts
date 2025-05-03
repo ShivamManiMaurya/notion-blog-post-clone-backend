@@ -9,7 +9,7 @@ app.use(
   "*",
   cors({
     origin: "*", // Or a specific origin like "https://your-frontend.com"
-    allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowMethods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowHeaders: ["Content-Type", "Authorization"],
   })
 );

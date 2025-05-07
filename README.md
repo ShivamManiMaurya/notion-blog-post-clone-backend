@@ -6,7 +6,6 @@ This is a blog post web application that features user authentication with signu
 
 -   [Overview](#overview)
     -   [The Theme](#the-theme)
-    -   [Screenshot](#screenshot)
     -   [Links](#links)
 -   [My process](#my-process)
     -   [Built with](#built-with)
@@ -24,17 +23,6 @@ Users should be able to:
 -   View all blog posts published by other users.
 -   See newly created blog posts appear in real-time.
 -   Have each blog post recorded with a timestamp for reference.
-
-
-![](./screenshot.jpg)
-
-| Signup Page                                                       | Signin Page                                                          |
-| ----------------------------------------------------------------- | -------------------------------------------------------------------- |
-| ![Tablet](./src/assets/images/screenshots/signupPage.png)         | ![Mobile](./src/assets/images/screenshots/signinPage.png)            |
-| Blogs Page                                                        | Full Single Blog Page                                                |
-| ![Tablet](./src/assets/images/screenshots/blogsPage.png)          | ![Mobile](./src/assets/images/screenshots/singleBlogPage.png)        |
-| Blog Edit Page                                                                                                                           |
-| ![Home_Page_PC](./src/assets/images/screenshots/blogEditPage.png)                                                                        |
 
 ### Links
 
